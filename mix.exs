@@ -3,13 +3,15 @@ defmodule Pager.MixProject do
 
   def project do
     [
-      app: :page,
+      app: :pager,
       name: "Pager",
       description: "Completely Decoupled Pagination library for Ecto Queries",
       source_url: "http://github.com/or-equals/pager",
       elixir: ">= 1.11.0",
+      elixirc_paths: elixirc_paths(Mix.env()),
       version: "0.1.0",
       package: package(),
+      aliases: aliases(),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -25,8 +27,10 @@ defmodule Pager.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:ecto, "~> 3.3"},
+      {:ecto_sql, "~> 3.3", only: :test},
+      {:postgrex, "~> 0.15.0", only: :test},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
@@ -34,7 +38,25 @@ defmodule Pager.MixProject do
     [
       maintainers: ["Joshua Plicque"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/or-equals/pager"}
+      links: %{"GitHub" => "https://github.com/or-equals/pager"},
+      files: [
+        "lib/pager",
+        "mix.exs",
+        "README.md"
+      ]
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp aliases do
+    [
+      "db.reset": [
+        "ecto.drop",
+        "ecto.create",
+        "ecto.migrate"
+      ]
     ]
   end
 end
