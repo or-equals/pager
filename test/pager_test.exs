@@ -3,15 +3,13 @@ defmodule PagerTest do
   doctest Pager
   alias Pager.Repo
 
-  # use LocalFareJax.DataCase, async: true
-
   import Ecto.Query, warn: false
 
   def user_fixture() do
     Repo.insert!(%User{})
   end
 
-  describe "page/3" do
+  describe "page/4" do
     test "returns results with pagination support" do
       _user_one = user_fixture()
       user_two = user_fixture()
@@ -20,7 +18,7 @@ defmodule PagerTest do
       page = 1
       per_page = 1
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: true,
         has_prev: false,
         prev_page: 0,
@@ -42,7 +40,7 @@ defmodule PagerTest do
       page = "2"
       per_page = "1"
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: true,
         has_prev: true,
         prev_page: 1,
@@ -64,7 +62,7 @@ defmodule PagerTest do
       page = "2"
       per_page = 1
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: true,
         has_prev: true,
         prev_page: 1,
@@ -86,7 +84,7 @@ defmodule PagerTest do
       page = 2
       per_page = "1"
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: true,
         has_prev: true,
         prev_page: 1,
@@ -108,7 +106,7 @@ defmodule PagerTest do
       page = 1
       per_page = nil
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: false,
         has_prev: false,
         prev_page: 0,
@@ -130,7 +128,7 @@ defmodule PagerTest do
       page = 1
       per_page = ""
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: false,
         has_prev: false,
         prev_page: 0,
@@ -152,7 +150,7 @@ defmodule PagerTest do
       page = nil
       per_page = 8
 
-      assert Pager.page(query, page, per_page) == %{
+      assert Pager.page(Repo, query, page, per_page) == %{
         has_next: false,
         has_prev: false,
         prev_page: 0,

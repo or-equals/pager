@@ -1,34 +1,33 @@
 defmodule Pager do
   import Ecto.Query, warn: false
-  alias Pager.Repo
 
   @moduledoc """
   Documentation for `Pager`.
   """
 
-  def page(query, nil, per_page) do
-    page(query, 1, per_page)
+  def page(repo, query, nil, per_page) do
+    page(repo, query, 1, per_page)
   end
 
-  def page(query, page, per_page) when is_nil(per_page) or per_page == "" do
-    page(query, page, 50)
+  def page(repo, query, page, per_page) when is_nil(per_page) or per_page == "" do
+    page(repo, query, page, 50)
   end
 
-  def page(query, page, per_page) when is_binary(page) and is_binary(per_page) do
-    page(query, String.to_integer(page), String.to_integer(per_page))
+  def page(repo, query, page, per_page) when is_binary(page) and is_binary(per_page) do
+    page(repo, query, String.to_integer(page), String.to_integer(per_page))
   end
 
-  def page(query, page, per_page) when is_binary(page) do
-    page(query, String.to_integer(page), per_page)
+  def page(repo, query, page, per_page) when is_binary(page) do
+    page(repo, query, String.to_integer(page), per_page)
   end
 
-  def page(query, page, per_page) when is_binary(per_page) do
-    page(query, page, String.to_integer(per_page))
+  def page(repo, query, page, per_page) when is_binary(per_page) do
+    page(repo, query, page, String.to_integer(per_page))
   end
 
-  def page(query, page, per_page) do
-    results = query(query, page, per_page: per_page)
-    count = Repo.one(from(t in subquery(query), select: count("*")))
+  def page(repo, query, page, per_page) do
+    results = query(repo, query, page, per_page: per_page)
+    count = repo.one(from(t in subquery(query), select: count("*")))
 
     %{
       has_next: length(results) > per_page,
@@ -43,10 +42,10 @@ defmodule Pager do
     }
   end
 
-  defp query(query, page, per_page: per_page) do
+  defp query(repo, query, page, per_page: per_page) do
     query
     |> limit(^(per_page + 1))
     |> offset(^(per_page * (page - 1)))
-    |> Repo.all()
+    |> repo.all()
   end
 end
