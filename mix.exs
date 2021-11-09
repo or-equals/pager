@@ -40,7 +40,7 @@ defmodule Pager.MixProject do
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/or-equals/pager"},
       files: [
-        "lib/pager",
+        "lib/pager.ex",
         "mix.exs",
         "README.md"
       ]
