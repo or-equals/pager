@@ -5,28 +5,28 @@ defmodule Pager do
   Documentation for `Pager`.
   """
 
-  def page(repo, query, nil, per_page) do
-    page(repo, query, 1, per_page)
+  def page(query, repo, nil, per_page) do
+    page(query, repo, 1, per_page)
   end
 
-  def page(repo, query, page, per_page) when is_nil(per_page) or per_page == "" do
-    page(repo, query, page, 50)
+  def page(query, repo, page, per_page) when is_nil(per_page) or per_page == "" do
+    page(query, repo, page, 50)
   end
 
-  def page(repo, query, page, per_page) when is_binary(page) and is_binary(per_page) do
-    page(repo, query, String.to_integer(page), String.to_integer(per_page))
+  def page(query, repo, page, per_page) when is_binary(page) and is_binary(per_page) do
+    page(query, repo, String.to_integer(page), String.to_integer(per_page))
   end
 
-  def page(repo, query, page, per_page) when is_binary(page) do
-    page(repo, query, String.to_integer(page), per_page)
+  def page(query, repo, page, per_page) when is_binary(page) do
+    page(query, repo, String.to_integer(page), per_page)
   end
 
-  def page(repo, query, page, per_page) when is_binary(per_page) do
-    page(repo, query, page, String.to_integer(per_page))
+  def page(query, repo, page, per_page) when is_binary(per_page) do
+    page(query, repo, page, String.to_integer(per_page))
   end
 
-  def page(repo, query, page, per_page) do
-    results = query(repo, query, page, per_page: per_page)
+  def page(query, repo, page, per_page) do
+    results = query(query, repo, page, per_page: per_page)
     count = repo.one(from(t in subquery(query), select: count("*")))
 
     %{
@@ -42,7 +42,7 @@ defmodule Pager do
     }
   end
 
-  defp query(repo, query, page, per_page: per_page) do
+  defp query(query, repo, page, per_page: per_page) do
     query
     |> limit(^(per_page + 1))
     |> offset(^(per_page * (page - 1)))

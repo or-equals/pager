@@ -18,7 +18,7 @@ defmodule PagerTest do
       page = 1
       per_page = 1
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: true,
         has_prev: false,
         prev_page: 0,
@@ -40,7 +40,7 @@ defmodule PagerTest do
       page = "2"
       per_page = "1"
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: true,
         has_prev: true,
         prev_page: 1,
@@ -62,7 +62,7 @@ defmodule PagerTest do
       page = "2"
       per_page = 1
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: true,
         has_prev: true,
         prev_page: 1,
@@ -84,7 +84,7 @@ defmodule PagerTest do
       page = 2
       per_page = "1"
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: true,
         has_prev: true,
         prev_page: 1,
@@ -106,7 +106,7 @@ defmodule PagerTest do
       page = 1
       per_page = nil
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: false,
         has_prev: false,
         prev_page: 0,
@@ -128,7 +128,7 @@ defmodule PagerTest do
       page = 1
       per_page = ""
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: false,
         has_prev: false,
         prev_page: 0,
@@ -150,7 +150,7 @@ defmodule PagerTest do
       page = nil
       per_page = 8
 
-      assert Pager.page(Repo, query, page, per_page) == %{
+      assert Pager.page(query, Repo, page, per_page) == %{
         has_next: false,
         has_prev: false,
         prev_page: 0,
