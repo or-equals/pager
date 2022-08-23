@@ -162,5 +162,27 @@ defmodule PagerTest do
         list: [user_three, user_two, user_one]
       }
     end
+
+    test "set page to 1 when first > count" do
+      user_one = user_fixture()
+      user_two = user_fixture()
+      user_three = user_fixture()
+
+      query = order_by(User, desc: :id)
+      page = 50
+      per_page = 8
+
+      assert Pager.page(query, Repo, page, per_page) == %{
+        has_next: false,
+        has_prev: false,
+        prev_page: 0,
+        page: 1,
+        next_page: 2,
+        first: 1,
+        last: 3,
+        count: 3,
+        list: [user_three, user_two, user_one]
+      }
+    end
   end
 end
