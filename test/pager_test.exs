@@ -184,5 +184,23 @@ defmodule PagerTest do
         list: [user_three, user_two, user_one]
       }
     end
+
+    test "no results" do
+      query = order_by(User, desc: :id)
+      page = 1
+      per_page = 30
+
+      assert Pager.page(query, Repo, page, per_page) == %{
+        has_next: false,
+        has_prev: false,
+        prev_page: 0,
+        page: 1,
+        next_page: 2,
+        first: 1,
+        last: 0,
+        count: 0,
+        list: []
+      }
+    end
   end
 end

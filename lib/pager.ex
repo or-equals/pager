@@ -30,7 +30,7 @@ defmodule Pager do
     count = repo.one(from(t in subquery(query), select: count("*")))
     first = (page - 1) * per_page + 1
 
-    if (first > count) do
+    if (first > count && count > 0) do
       page(query, repo, 1, per_page)
     else
       %{
