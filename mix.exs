@@ -9,7 +9,7 @@ defmodule Pager.MixProject do
       source_url: "http://github.com/or-equals/pager",
       elixir: ">= 1.11.0",
       elixirc_paths: elixirc_paths(Mix.env()),
-      version: "0.3.0",
+      version: "0.4.0",
       package: package(),
       aliases: aliases(),
       start_permanent: Mix.env() == :prod,
