@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :pager, ecto_repos: [Pager.Repo]
 

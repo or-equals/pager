@@ -9,7 +9,7 @@ defmodule Pager.MixProject do
       source_url: "http://github.com/or-equals/pager",
       elixir: ">= 1.11.0",
       elixirc_paths: elixirc_paths(Mix.env()),
-      version: "0.4.0",
+      version: "1.0.0",
       package: package(),
       aliases: aliases(),
       start_permanent: Mix.env() == :prod,
@@ -27,10 +27,10 @@ defmodule Pager.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ecto, "~> 3.3"},
-      {:ecto_sql, "~> 3.3", only: :test},
-      {:postgrex, "~> 0.15.0", only: :test},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ecto, "~> 3.12"},
+      {:ecto_sql, "~> 3.12", only: :test},
+      {:postgrex, "~> 0.20.0", only: :test},
+      {:ex_doc, ">= 0.37.0", only: :dev}
     ]
   end
 

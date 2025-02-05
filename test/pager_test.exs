@@ -1,7 +1,7 @@
 defmodule PagerTest do
   use Pager.TestCase
   doctest Pager
-  alias Pager.Repo
+  alias Pager.{Repo, User}
 
   import Ecto.Query, warn: false
 

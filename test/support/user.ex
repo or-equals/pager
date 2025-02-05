@@ -1,4 +1,4 @@
-defmodule User do
+defmodule Pager.User do
   use Ecto.Schema
 
   schema "users" do
