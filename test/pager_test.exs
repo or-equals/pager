@@ -1,5 +1,5 @@
 defmodule PagerTest do
-  use Pager.TestCase
+  use Pager.TestCase, async: true
   doctest Pager
   alias Pager.{Repo, User}
 
