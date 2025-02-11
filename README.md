@@ -1,6 +1,6 @@
 # Pager
 
-Zero-dependency pagination for Ecto queries with automatic page boundary handling and flexible parameter types.
+Zero-dependency pagination for Ecto queries with automatic page boundary handling and flexible parameter types. [View the documentation](https://hexdocs.pm/pager/Pager.html)
 
 ## Features
 
